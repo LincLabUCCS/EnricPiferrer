@@ -209,7 +209,6 @@ class MyModel():
     self.dropout = mydropout
     self.mlp = 'softmax'
     self.lstm = mylstm
-#    self.weights = defaultdict(int)
     self.weights = []
     self.model = Sequential()
     self.history = []
@@ -354,7 +353,7 @@ class MyModel():
       intersection = 0
       
       #mydata += "\nUSER " + str(i) + ": " + str(int(num_appearances[i]))
-#      print "Class " + str(cl) + ":  "
+      print "Class " + str(cl) + ":  "
 
       for e in range(len(self.threshold)) :
         # Calculate the EER rates (TPR, TNR, FPR, FNR) for each threshold
@@ -367,8 +366,8 @@ class MyModel():
         if (self.values[cl][e]["fpr"] >= self.values[cl][e]["fnr"]):
           intersection = 1
         
-#        print "FPR: " + str("%5.3f%%" % (100*float(self.values[cl][e]["fpr"]))),
-#        print " | FNR: " + str("%5.3f%%" % (100*float(self.values[cl][e]["fnr"])))
+        print "FPR: " + str("%5.3f%%" % (100*float(self.values[cl][e]["fpr"]))),
+        print " | FNR: " + str("%5.3f%%" % (100*float(self.values[cl][e]["fnr"])))
 
         # Append the absolute difference between the FPR and the FNR value for each threshold
         diff.append(abs(self.values[cl][e]["fpr"] - self.values[cl][e]["fnr"]))
@@ -383,11 +382,11 @@ class MyModel():
       # If there is no intersection, the EER for class 'cl' will be 0. Otherwise, we approximate the EER intersection by finding the minimum absolute difference point stored in the 'diff' variable, and calculating the average between the FPR and FNR at that particular point
       if (intersection == 0) : eer[cl] = 0.0
       else :
-#        print diff
+        print diff
         min_pos = diff.index(min(diff))
         eer[cl] = (self.values[cl][min_pos]["fpr"] + self.values[cl][min_pos]["fnr"]) / 2
       
-#      print "EER for class:  " + str("%5.3f%%" % (100*float(eer[cl])))
+      print "EER for class:  " + str("%5.3f%%" % (100*float(eer[cl])))
       #mydata += "\nEER for class:  " + str("%5.3f%%" % (100*float(eer[i]))) + "\n"
 
     # Add each eer for all the classes together and then calculate the average
